@@ -1,6 +1,7 @@
-const tbody = document.querySelector('#invoiceTable tbody');
-const totalDiv = document.getElementById('total');
+
 let totalAmount = 0;
+const tbody = document.getElementById("invoiceBody");
+const totalDiv = document.getElementById("total");
 
 function addItem() {
   const name = document.getElementById('productName').value.trim();
@@ -22,14 +23,16 @@ function addItem() {
     <td>${qty}</td>
     <td>${price.toFixed(2)}</td>
     <td>${itemTotal.toFixed(2)}</td>
-    `
-  ;
+    `;
   tbody.appendChild(row);
 
-  // تصحيح تحديث نص الإجمالي الكلي
   totalDiv.textContent = `الإجمالي الكلي: ${totalAmount.toFixed(2)}`;
 
   document.getElementById('productName').value = '';
   document.getElementById('quantity').value = '';
   document.getElementById('price').value = '';
-  document.getElementById('productName').focus();}
+  document.getElementById('productName').focus();
+}
+
+function printInvoice() {
+  window.print();}

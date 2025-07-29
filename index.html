@@ -2,42 +2,37 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>فاتورة مبيعات احترافية</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>فاتورة مبيعات</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>فاتورة مبيعات احترافية</h1>
-    <form id="invoiceForm" onsubmit="return false;">
-      <label for="productName">اسم المنتج</label>
-      <input type="text" id="productName" placeholder="ادخل اسم المنتج" required />
-      
-      <label for="quantity">الكمية</label>
-      <input type="number" id="quantity" placeholder="ادخل الكمية" min="1" required />
-      
-      <label for="price">سعر الوحدة</label>
-      <input type="number" id="price" placeholder="ادخل سعر الوحدة" min="0" step="0.01" required />
-      
-      <button type="submit" onclick="addItem()">أضف المنتج</button>
+    <h1>فاتورة المبيعات</h1>
+
+    <form>
+      <input type="text" id="productName" placeholder="اسم المنتج" required>
+      <input type="number" id="quantity" placeholder="الكمية" required>
+      <input type="number" id="price" placeholder="سعر الوحدة" step="0.01" required>
+      <button type="button" onclick="addItem()">أضف المنتج</button>
     </form>
-    
-    <table id="invoiceTable" aria-label="جدول الفاتورة">
+
+    <table>
       <thead>
         <tr>
-          <th>اسم المنتج</th>
+          <th>المنتج</th>
           <th>الكمية</th>
           <th>سعر الوحدة</th>
           <th>الإجمالي</th>
         </tr>
       </thead>
-      <tbody>
-        <!-- المنتجات المضافة -->
-      </tbody>
+      <tbody id="invoiceBody"></tbody>
     </table>
-    
+
     <div id="total">الإجمالي الكلي: 0.00</div>
+
+    <button type="button" onclick="printInvoice()" id="printBtn">🖨️ طباعة الفاتورة</button>
   </div>
 
   <script src="script.js"></script>
