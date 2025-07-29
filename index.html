@@ -1,91 +1,44 @@
+
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>فاتورة صغيرة</title>
-  <style>
-    body {
-      font-family: monospace;
-      font-size: 12px;
-      margin: 0;
-      padding: 10px;
-      width: 250px; /* تقريبا عرض ورقة 58mm */
-    }
-
-    h3, button {
-      text-align: center;
-      margin: 5px 0;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      padding: 4px;
-      border-bottom: 1px dashed #000;
-      text-align: right;
-    }
-
-    input {
-      font-size: 12px;
-      width: 100%;
-      border: none;
-      background: none;
-    }
-
-    button {
-      font-size: 12px;
-      padding: 5px 10px;
-      margin: 5px 2px;
-    }
-
-    .delete-btn {
-      background: red;
-      color: white;
-      border: none;
-    }
-
-    @media print {
-      button {
-        display: none;
-      }
-
-      body {
-        width: auto;
-        margin: 0;
-        padding: 0;
-      }
-    }
-  </style>
+  <title>فاتورة مبيعات احترافية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <h3>فاتورة مبيعات</h3>
-
-  <button onclick="addRow()">➕ إضافة منتج</button>
-  <button onclick="window.print()">🖨️ طباعة</button>
-
-  <table>
-    <thead>
-      <tr>
-        <th>المنتج</th>
-        <th>العدد</th>
-        <th>السعر</th>
-        <th>المجموع</th>
-        <th>حذف</th>
-      </tr>
-    </thead>
-    <tbody id="items"></tbody>
-    <tfoot>
-      <tr>
-        <td colspan="3"><strong>الإجمالي</strong></td>
-        <td id="grand-total">0</td>
-        <td></td>
-      </tr>
-    </tfoot>
-  </table>
+  <div class="container">
+    <h1>فاتورة مبيعات احترافية</h1>
+    <form id="invoiceForm" onsubmit="return false;">
+      <label for="productName">اسم المنتج</label>
+      <input type="text" id="productName" placeholder="ادخل اسم المنتج" required />
+      
+      <label for="quantity">الكمية</label>
+      <input type="number" id="quantity" placeholder="ادخل الكمية" min="1" required />
+      
+      <label for="price">سعر الوحدة</label>
+      <input type="number" id="price" placeholder="ادخل سعر الوحدة" min="0" step="0.01" required />
+      
+      <button type="submit" onclick="addItem()">أضف المنتج</button>
+    </form>
+    
+    <table id="invoiceTable" aria-label="جدول الفاتورة">
+      <thead>
+        <tr>
+          <th>اسم المنتج</th>
+          <th>الكمية</th>
+          <th>سعر الوحدة</th>
+          <th>الإجمالي</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- المنتجات المضافة -->
+      </tbody>
+    </table>
+    
+    <div id="total">الإجمالي الكلي: 0.00</div>
+  </div>
 
   <script src="script.js"></script>
 </body>

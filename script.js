@@ -1,51 +1,35 @@
+const tbody = document.querySelector('#invoiceTable tbody');
+const totalDiv = document.getElementById('total');
+let totalAmount = 0;
 
-function addRow() {
-  const table = document.getElementById("items");
-  const row = document.createElement("tr");
+function addItem() {
+  const name = document.getElementById('productName').value.trim();
+  const qty = parseInt(document.getElementById('quantity').value);
+  const price = parseFloat(document.getElementById('price').value);
 
+  // تصحيح شرط التحقق من صحة البيانات
+  if (!name || isNaN(qty) || qty <= 0 || isNaN(price) || price < 0) {
+    alert('يرجى إدخال بيانات صحيحة للمنتج والكمية والسعر.');
+    return;
+  }
+
+  const itemTotal = qty * price;
+  totalAmount += itemTotal;
+
+  const row = document.createElement('tr');
   row.innerHTML = `
-    <td><input type="text" class="item-name" /></td>
-    <td><input type="number" class="item-qty" value="1" min="0" /></td>
-    <td><input type="number" class="item-price" value="0" min="0" /></td>
-    <td class="item-total">0</td>
-    <td><button class="delete-btn">✖</button></td>
+    <td>${name}</td>
+    <td>${qty}</td>
+    <td>${price.toFixed(2)}</td>
+    <td>${itemTotal.toFixed(2)}</td>
     `
   ;
+  tbody.appendChild(row);
 
-  table.appendChild(row);
-  attachRowEvents(row);
-}
+  // تصحيح تحديث نص الإجمالي الكلي
+  totalDiv.textContent = `الإجمالي الكلي: ${totalAmount.toFixed(2)}`;
 
-function attachRowEvents(row) {
-  const qty = row.querySelector(".item-qty");
-  const price = row.querySelector(".item-price");
-  const deleteBtn = row.querySelector(".delete-btn");
-
-  qty.addEventListener("input", updateTotals);
-  price.addEventListener("input", updateTotals);
-
-  deleteBtn.addEventListener("click", () => {
-    row.remove();
-    updateTotals();
-  });
-}
-
-function updateTotals() {
-  let grandTotal = 0;
-  const rows = document.querySelectorAll("#items tr");
-
-  rows.forEach((row) => {
-    const qtyInput = row.querySelector(".item-qty");
-    const priceInput = row.querySelector(".item-price");
-    const totalCell = row.querySelector(".item-total");
-
-    const qty = parseFloat(qtyInput.value) || 0;
-    const price = parseFloat(priceInput.value) || 0;
-    const total = qty * price;
-
-    totalCell.textContent = total.toFixed(2);
-    grandTotal += total;
-  });
-
-  document.getElementById("grand-total").textContent = grandTotal.toFixed(2);
-}
+  document.getElementById('productName').value = '';
+  document.getElementById('quantity').value = '';
+  document.getElementById('price').value = '';
+  document.getElementById('productName').focus();}
