@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <title>فاتورة صغيرة</title>
+  <style>
+    body {
+      font-family: monospace;
+      font-size: 12px;
+      margin: 0;
+      padding: 10px;
+      width: 250px; /* تقريبا عرض ورقة 58mm */
+    }
+
+    h3, button {
+      text-align: center;
+      margin: 5px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 4px;
+      border-bottom: 1px dashed #000;
+      text-align: right;
+    }
+
+    input {
+      font-size: 12px;
+      width: 100%;
+      border: none;
+      background: none;
+    }
+
+    button {
+      font-size: 12px;
+      padding: 5px 10px;
+      margin: 5px 2px;
+    }
+
+    .delete-btn {
+      background: red;
+      color: white;
+      border: none;
+    }
+
+    @media print {
+      button {
+        display: none;
+      }
+
+      body {
+        width: auto;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h3>فاتورة مبيعات</h3>
+
+  <button onclick="addRow()">➕ إضافة منتج</button>
+  <button onclick="window.print()">🖨️ طباعة</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>المنتج</th>
+        <th>العدد</th>
+        <th>السعر</th>
+        <th>المجموع</th>
+        <th>حذف</th>
+      </tr>
+    </thead>
+    <tbody id="items"></tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3"><strong>الإجمالي</strong></td>
+        <td id="grand-total">0</td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>
